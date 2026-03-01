@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import fileupload from "express-fileupload";
+import fileUpload from "express-fileupload";
 import { connectWithDB } from "./config/database.js";
 import { cloudinaryConnect } from "./config/cloudinary.js";
 import { router } from "./routes/FileUpload.js";
@@ -13,7 +13,12 @@ const PORT = process.env.PORT || 3000;
 // middlewares
 app.use(express.json());
 // middleware for file uploading
-app.use(fileupload());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  }),
+);
 
 // connect with DB
 connectWithDB();
